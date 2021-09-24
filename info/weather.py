@@ -13,5 +13,6 @@ async def weather_request(greet):
     }
     weather = requests.get(url, params=weather_parameters).text
 
-    await cfg.bot.send_message(cfg.bot_id, greet + weather)
+    bot_message = await cfg.bot.send_message(cfg.bot_id, greet + weather)
+    cfg.weather_message_id.append(bot_message.message_id)
     await cfg.asyncio.sleep(1)
