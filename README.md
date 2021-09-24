@@ -1,2 +1,2 @@
-# habr-news
- parsing favorite news from habr.com
+# InfoBot
+A telegram bot that collects various information from the Internet. Based on asynchronous libraries.
