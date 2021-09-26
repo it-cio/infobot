@@ -10,6 +10,13 @@ async def delete_pinned(message: types.Message):
     await message.delete()
 
 
+# @cfg.dp.message_handler(commands=['weather'])
+# async def bot_answer(message: types.Message):
+#     bot_message = await cfg.bot.send_message(cfg.bot_id, weather_request(message))
+#     cfg.id_list.append(bot_message.message_id)
+#     await cfg.asyncio.sleep(1)
+
+
 async def scheduler():
     aioschedule.every(5).to(10).seconds.do(weather_request, greet='Погода в Сочи:')
     while True:
@@ -20,13 +27,13 @@ async def scheduler():
 async def on_startup(_):
     cfg.asyncio.create_task(scheduler())
     bot_message = await cfg.bot.send_message(cfg.bot_id, 'Бот работает в тестовом режиме!')
-    cfg.test_message_id = bot_message.message_id
+    cfg.id_list.append(bot_message.message_id)
     await cfg.asyncio.sleep(1)
 
 
 async def on_shutdown(_):
-    await cfg.bot.delete_message(cfg.bot_id, cfg.test_message_id)
-    for message_id in cfg.weather_message_id:
+    cfg.close_sql()
+    for message_id in cfg.id_list:
         await cfg.bot.delete_message(cfg.bot_id, message_id)
     await cfg.asyncio.sleep(1)
 

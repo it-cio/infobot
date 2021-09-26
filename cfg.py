@@ -1,4 +1,5 @@
 import os
+import sqlite3
 import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
@@ -21,5 +22,18 @@ dp = Dispatcher(bot)
 # Global
 user_id = ''
 search_id = ''
-test_message_id = ''
-weather_message_id = []
+id_list = []
+
+# SQL
+sql_connection = sqlite3.connect('info.db')
+cursor = sql_connection.cursor()
+print("База данных подключена к SQLite")
+
+
+def close_sql():
+    global sql_connection
+    cursor.close()
+    if sql_connection:
+        print("Всего строк, измененных после подключения к базе данных: ", sql_connection.total_changes)
+        sql_connection.close()
+        print("Соединение с SQLite закрыто")
