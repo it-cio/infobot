@@ -12,20 +12,19 @@ async def weather_request(greet):
         'M': '',
         'lang': 'ru'
     }
-    weather = requests.get(url, params=weather_parameters).text
+    forecast = requests.get(url, params=weather_parameters).text
 
-    sql_weather, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
-    print(f'{sql_weather} - {sql_id}')
+    sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
 
-    if weather != sql_weather:
+    if forecast != sql_forecast:
         if sql_id == 0:
-            bot_message = await cfg.bot.send_message(cfg.bot_id, greet + weather, disable_notification=True)
+            bot_message = await cfg.bot.send_message(cfg.bot_id, greet + forecast, disable_notification=True)
             cfg.id_list.append(bot_message.message_id)
             await cfg.bot.pin_chat_message(cfg.bot_id, bot_message.message_id)
-            await cfg.asyncio.create_task(sql.update(name=weather, message_id=bot_message.message_id))
+            await cfg.asyncio.create_task(sql.update('weather', forecast, bot_message.message_id))
             await cfg.asyncio.sleep(1)
         else:
-            await cfg.bot.edit_message_text(greet + weather, cfg.bot_id, sql_id)
-            await cfg.asyncio.create_task(sql.update(name=weather, message_id=None))
+            await cfg.bot.edit_message_text(greet + forecast, cfg.bot_id, sql_id)
+            await cfg.asyncio.create_task(sql.update('weather', forecast, sql_id))
             await cfg.asyncio.sleep(1)
 
