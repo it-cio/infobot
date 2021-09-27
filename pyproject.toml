@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "infobot"
+version = "0.1.0"
+description = "A telegram bot that collects various information from the Internet. Based on asynchronous libraries."
+authors = ["Divider"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+aiogram = "^2.15"
+python-dotenv = "^0.19.0"
+aioschedule = "^0.5.2"
+aiosqlite = "^0.17.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
