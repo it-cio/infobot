@@ -87,6 +87,32 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 pytz = ">=2015.7"
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.10.0"
+description = "Screen-scraping library"
+category = "main"
+optional = false
+python-versions = ">3.0.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
+name = "bs4"
+version = "0.0.1"
+description = "Dummy package for Beautiful Soup"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+beautifulsoup4 = "*"
+
+[[package]]
 name = "certifi"
 version = "2021.5.30"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -138,6 +164,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "soupsieve"
+version = "2.2.1"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "typing-extensions"
 version = "3.10.0.2"
 description = "Backported and Experimental Type Hints for Python 3.5+"
@@ -160,7 +194,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "f76a2ef731ed4a52787dc546caaa09fcf223f72de689b6d0b43bf9d3fba26728"
+content-hash = "76d79bf9ce03633c36d76b04e0b24feed515806b75e65003ff489eb69eaf4d48"
 
 [metadata.files]
 aiogram = [
@@ -225,6 +259,13 @@ babel = [
     {file = "Babel-2.9.1-py2.py3-none-any.whl", hash = "sha256:ab49e12b91d937cd11f0b67cb259a57ab4ad2b59ac7a3b41d6c06c0ac5b0def9"},
     {file = "Babel-2.9.1.tar.gz", hash = "sha256:bc0c176f9f6a994582230df350aa6e05ba2ebe4b3ac317eab29d9be5d2768da0"},
 ]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
+    {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
+]
+bs4 = [
+    {file = "bs4-0.0.1.tar.gz", hash = "sha256:36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"},
+]
 certifi = [
     {file = "certifi-2021.5.30-py2.py3-none-any.whl", hash = "sha256:50b1e4f8446b06f41be7dd6338db18e0990601dce795c2b1686458aa7e8fa7d8"},
     {file = "certifi-2021.5.30.tar.gz", hash = "sha256:2bbf76fd432960138b3ef6dda3dde0544f27cbf8546c458e60baf371917ba9ee"},
@@ -283,6 +324,10 @@ python-dotenv = [
 pytz = [
     {file = "pytz-2021.1-py2.py3-none-any.whl", hash = "sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798"},
     {file = "pytz-2021.1.tar.gz", hash = "sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da"},
+]
+soupsieve = [
+    {file = "soupsieve-2.2.1-py3-none-any.whl", hash = "sha256:c2c1c2d44f158cdbddab7824a9af8c4f83c76b1e23e049479aa432feb6c4c23b"},
+    {file = "soupsieve-2.2.1.tar.gz", hash = "sha256:052774848f448cf19c7e959adf5566904d525f33a3f8b6ba6f6f8f26ec7de0cc"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},

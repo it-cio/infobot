@@ -6,11 +6,13 @@ from aiogram import executor, types
 from info.weather import weather_request
 
 
+# delete all pinned message
 @cfg.dp.message_handler(content_types=['pinned_message'])
 async def delete_pinned(message: types.Message):
     await message.delete()
 
 
+# type '/weather' in chat to get weather forecast
 @cfg.dp.message_handler(commands=['weather'])
 async def bot_answer(message: types.Message):
     sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
@@ -20,6 +22,7 @@ async def bot_answer(message: types.Message):
     await cfg.asyncio.sleep(1)
 
 
+# choose a time interval to run functions
 async def scheduler():
     aioschedule.every(15).to(30).seconds.do(weather_request, greet='Погода в Сочи:')
     while True:

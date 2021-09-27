@@ -4,7 +4,7 @@ import requests
 
 
 async def weather_request(greet):
-    url = 'https://wttr.in/Sochi'
+    url = 'https://wttr.in/Sochi'  # write the name of your city here
     weather_parameters = {
         'format': 2,
         '0': '',

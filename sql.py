@@ -27,5 +27,5 @@ async def update(name, request, message_id):
 
 async def close():
     async with aiosqlite.connect('database.db') as db:
-        await db.execute("DROP table IF EXISTS info")
+        await db.execute("DROP table IF EXISTS info")  # commit this so that the data in the database is saved
         print("SQL-Connection is closed")

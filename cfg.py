@@ -19,6 +19,4 @@ bot = Bot(token=bot_name)
 dp = Dispatcher(bot)
 
 # Global
-user_id = ''
-search_id = ''
 id_list = []
