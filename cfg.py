@@ -1,5 +1,4 @@
 import os
-import sqlite3
 import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
@@ -23,18 +22,3 @@ dp = Dispatcher(bot)
 user_id = ''
 search_id = ''
 id_list = []
-
-# SQL
-connection = sqlite3.connect('database.db')
-print("SQL-Connection is established")
-connection.execute("CREATE table IF NOT EXISTS info (weather TEXT, weather_id INTEGER, UNIQUE(weather, weather_id));")
-connection.execute("INSERT INTO info (weather, weather_id) VALUES ('forecast', 0);")
-
-
-def close_sql():
-    # global connection
-    connection.execute("DROP table IF EXISTS info")
-    if connection:
-        print("Total SQL-Requests: ", connection.total_changes)
-        connection.close()
-        print("SQL-Connection is closed")
