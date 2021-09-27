@@ -18,7 +18,7 @@ async def delete_pinned(message: types.Message):
 
 
 async def scheduler():
-    aioschedule.every(5).to(10).seconds.do(weather_request, greet='Погода в Сочи:')
+    aioschedule.every(10).to(15).seconds.do(weather_request, greet='Погода в Сочи:')
     while True:
         await aioschedule.run_pending()
         await cfg.asyncio.sleep(1)

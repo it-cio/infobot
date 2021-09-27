@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "habr-news"
+name = "infobot"
 version = "0.1.0"
-description = "parsing favorite news from habr.com"
+description = "A telegram bot that collects various information from the Internet. Based on asynchronous libraries."
 authors = ["Divider"]
 
 [tool.poetry.dependencies]

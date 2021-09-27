@@ -25,15 +25,16 @@ search_id = ''
 id_list = []
 
 # SQL
-sql_connection = sqlite3.connect('info.db')
-cursor = sql_connection.cursor()
-print("База данных подключена к SQLite")
+connection = sqlite3.connect('database.db')
+print("SQL-Connection is established")
+connection.execute("CREATE table IF NOT EXISTS info (weather TEXT, weather_id INTEGER, UNIQUE(weather, weather_id));")
+connection.execute("INSERT INTO info (weather, weather_id) VALUES ('forecast', 0);")
 
 
 def close_sql():
-    global sql_connection
-    cursor.close()
-    if sql_connection:
-        print("Всего строк, измененных после подключения к базе данных: ", sql_connection.total_changes)
-        sql_connection.close()
-        print("Соединение с SQLite закрыто")
+    # global connection
+    connection.execute("DROP table IF EXISTS info")
+    if connection:
+        print("Total SQL-Requests: ", connection.total_changes)
+        connection.close()
+        print("SQL-Connection is closed")
