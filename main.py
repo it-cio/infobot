@@ -3,7 +3,7 @@ import sql
 import aioschedule
 from aiogram import executor, types
 
-from info.weather import weather_request
+from routes import route_weather
 
 
 # delete all pinned message
@@ -16,7 +16,7 @@ async def delete_pinned(message: types.Message):
 @cfg.dp.message_handler(commands=['weather'])
 async def bot_answer(message: types.Message):
     sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
-    bot_message = await cfg.bot.send_message(cfg.bot_id, f'Погода в Сочи:{sql_forecast}')
+    bot_message = await cfg.bot.send_message(cfg.bot_id, f'Weather forecast: {sql_forecast}')
     cfg.id_list.append(bot_message.message_id)
     await message.delete()
     await cfg.asyncio.sleep(1)
@@ -24,7 +24,7 @@ async def bot_answer(message: types.Message):
 
 # choose a time interval to run functions
 async def scheduler():
-    aioschedule.every(15).to(30).seconds.do(weather_request, greet='Погода в Сочи:')
+    aioschedule.every(15).to(30).seconds.do(route_weather, greet='Weather forecast: ')
     while True:
         await aioschedule.run_pending()
         await cfg.asyncio.sleep(1)
