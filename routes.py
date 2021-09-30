@@ -1,19 +1,11 @@
 import cfg
 import sql
-import requests
+from weather.forecast import weather_request
 
 
-async def weather_request(greet):
-    url = 'https://wttr.in/Sochi'  # write the name of your city here
-    weather_parameters = {
-        'format': 2,
-        '0': '',
-        'T': '',
-        'M': '',
-        'lang': 'ru'
-    }
-    forecast = requests.get(url, params=weather_parameters).text
+async def route_weather(greet):
 
+    forecast = await weather_request()
     sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
 
     if forecast != sql_forecast:
@@ -27,4 +19,6 @@ async def weather_request(greet):
             await cfg.bot.edit_message_text(greet + forecast, cfg.bot_id, sql_id)
             await cfg.asyncio.create_task(sql.update('weather', forecast, sql_id))
             await cfg.asyncio.sleep(1)
+
+
 
