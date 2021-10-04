@@ -4,7 +4,7 @@ import aiosqlite
 async def create():
     async with aiosqlite.connect('database.db') as db:
         print("SQL-Connection is established")
-        await db.execute("DROP table IF EXISTS info")
+        # await db.execute("DROP table IF EXISTS info")
         await db.execute("CREATE table IF NOT EXISTS info ("
                          "weather TEXT, weather_id INTEGER,"
                          "covid TEXT, covid_id INTEGER"
@@ -33,5 +33,5 @@ async def update(name, request, message_id):
 
 async def close():
     async with aiosqlite.connect('database.db') as db:
-        await db.execute("DROP table IF EXISTS info")  # commit this so that the data in the database is saved
+        # await db.execute("DROP table IF EXISTS info")  # commit this so that the data in the database is saved
         print("SQL-Connection is closed")
