@@ -3,7 +3,7 @@ import sql
 import aioschedule
 from aiogram import executor, types
 
-from routes import route_weather
+from routes import route_weather, route_covid
 
 
 # delete all pinned message
@@ -24,7 +24,8 @@ async def bot_answer(message: types.Message):
 
 # choose a time interval to run functions
 async def scheduler():
-    aioschedule.every(15).to(30).seconds.do(route_weather, greet='Weather forecast: ')
+    aioschedule.every(15).to(30).seconds.do(route_weather, greet='Прогноз погоды: ')
+    aioschedule.every(30).seconds.do(route_covid, greet='Коронавирус\nоперативные данные\n\n')
     while True:
         await aioschedule.run_pending()
         await cfg.asyncio.sleep(1)
