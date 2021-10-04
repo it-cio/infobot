@@ -5,8 +5,14 @@ async def create():
     async with aiosqlite.connect('database.db') as db:
         print("SQL-Connection is established")
         await db.execute("DROP table IF EXISTS info")
-        await db.execute("CREATE table IF NOT EXISTS info (weather TEXT, weather_id INTEGER);")
-        await db.execute("INSERT INTO info (weather, weather_id) VALUES ('forecast', 0);")
+        await db.execute("CREATE table IF NOT EXISTS info ("
+                         "weather TEXT, weather_id INTEGER,"
+                         "covid TEXT, covid_id INTEGER"
+                         ");")
+        await db.execute("INSERT INTO info "
+                         "(weather, weather_id, covid, covid_id)"
+                         " VALUES"
+                         " ('forecast', 0, 'prognosis', 0);")
         await db.commit()
 
 

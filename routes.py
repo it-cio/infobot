@@ -1,6 +1,7 @@
 import cfg
 import sql
 from weather.forecast import weather_request
+from covid.prognosis import covid_request
 
 
 async def route_weather(greet):
@@ -19,6 +20,19 @@ async def route_weather(greet):
             await cfg.bot.edit_message_text(greet + forecast, cfg.bot_id, sql_id)
             await cfg.asyncio.create_task(sql.update('weather', forecast, sql_id))
             await cfg.asyncio.sleep(1)
+
+
+async def route_covid(greet):
+
+    prognosis = await covid_request()
+    sql_prognosis, sql_id = await cfg.asyncio.create_task(sql.select('covid'))
+
+    if prognosis != sql_prognosis:
+        bot_message = await cfg.bot.send_message(cfg.bot_id, greet + prognosis, disable_notification=True)
+        cfg.id_list.append(bot_message.message_id)
+        await cfg.asyncio.create_task(sql.update('covid', prognosis, bot_message.message_id))
+        await cfg.asyncio.sleep(1)
+
 
 
 
