@@ -4,3 +4,6 @@
 [submodule "covid"]
 	path = covid
 	url = https://github.com/it-cio/covid
+[submodule "framework"]
+	path = framework
+	url = https://github.com/it-cio/framework

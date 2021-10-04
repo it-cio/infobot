@@ -1,5 +1,6 @@
 import cfg
 import sql
+from framework.bot import send_message, edit_message, pin_message
 from weather.forecast import weather_request
 from covid.prognosis import covid_request
 
@@ -11,13 +12,11 @@ async def route_weather(greet):
     if forecast != sql_forecast:
         try:
             weather_id = sql_id
-            await cfg.bot.edit_message_text(greet + forecast, cfg.bot_id, weather_id)
+            await edit_message(greet + forecast, weather_id)
         except Exception as ex:
             print(f'{ex} (message_id: {sql_id})')
-            bot_message = await cfg.bot.send_message(cfg.bot_id, greet + forecast, disable_notification=True)
-            weather_id = bot_message.message_id
-            cfg.id_list.append(weather_id)
-            await cfg.bot.pin_chat_message(cfg.bot_id, weather_id)
+            weather_id = await send_message(greet + forecast)
+            await pin_message(weather_id)
         finally:
             await cfg.asyncio.create_task(sql.update('weather', forecast, weather_id))
             await cfg.asyncio.sleep(1)
@@ -29,9 +28,8 @@ async def route_covid(greet):
 
     if prognosis != sql_prognosis:
         try:
-            bot_message = await cfg.bot.send_message(cfg.bot_id, greet + prognosis, disable_notification=True)
-            cfg.id_list.append(bot_message.message_id)
-            await cfg.asyncio.create_task(sql.update('covid', prognosis, bot_message.message_id))
+            covid_id = await send_message(greet + prognosis)
+            await cfg.asyncio.create_task(sql.update('covid', prognosis, covid_id))
         except Exception as ex:
             print(ex)
         finally:

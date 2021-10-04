@@ -1,25 +1,20 @@
 import cfg
 import sql
+import asyncio
 import aioschedule
-from aiogram import executor, types
 
+from framework.bot import run, on_startup
 from routes import route_weather, route_covid
 
 
-# delete all pinned message
-@cfg.dp.message_handler(content_types=['pinned_message'])
-async def delete_pinned(message: types.Message):
-    await message.delete()
-
-
-# type '/weather' in chat to get weather forecast
-@cfg.dp.message_handler(commands=['weather'])
-async def bot_answer(message: types.Message):
-    sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
-    bot_message = await cfg.bot.send_message(cfg.bot_id, f'Weather forecast: {sql_forecast}')
-    cfg.id_list.append(bot_message.message_id)
-    await message.delete()
-    await cfg.asyncio.sleep(1)
+# # type '/weather' in chat to get weather forecast
+# @cfg.dp.message_handler(commands=['weather'])
+# async def bot_answer(message: types.Message):
+#     sql_forecast, sql_id = await cfg.asyncio.create_task(sql.select('weather'))
+#     bot_message = await cfg.bot.send_message(cfg.bot_id, f'Weather forecast: {sql_forecast}')
+#     cfg.id_list.append(bot_message.message_id)
+#     await message.delete()
+#     await cfg.asyncio.sleep(1)
 
 
 # choose a time interval to run functions
@@ -31,23 +26,14 @@ async def scheduler():
         await cfg.asyncio.sleep(1)
 
 
-async def on_startup(_):
-    cfg.asyncio.create_task(sql.create())
-    cfg.asyncio.create_task(scheduler())
-    bot_message = await cfg.bot.send_message(cfg.bot_id, 'Бот работает в тестовом режиме!')
-    cfg.id_list.append(bot_message.message_id)
+async def tasks():
+    asyncio.create_task(sql.create())
+    asyncio.create_task(scheduler())
     await cfg.asyncio.sleep(1)
-
-
-async def on_shutdown(_):
-    cfg.asyncio.create_task(sql.close())
-    for message_id in cfg.id_list:
-        await cfg.bot.delete_message(cfg.bot_id, message_id)
-    await cfg.asyncio.sleep(1)
+# asyncio.create_task(sql.close())
 
 
 if __name__ == '__main__':
-    try:
-        executor.start_polling(cfg.dp, skip_updates=True, on_startup=on_startup, on_shutdown=on_shutdown)
-    except Exception as ex:
-        print(f'({cfg.date} {cfg.time}) AioGram-Error: {ex}')
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(tasks())
+    run()
