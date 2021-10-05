@@ -1,7 +1,14 @@
 import aiosqlite
+from datetime import datetime
 
 
-async def create(_):
+''' DateTime '''
+date = datetime.now().strftime('%Y-%m-%d')
+time = datetime.now().strftime('%H:%M:%S')
+dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+
+async def create_table(_):
     async with aiosqlite.connect('database.db') as db:
         print("SQL-Connection is established")
         await db.execute("DROP table IF EXISTS info")  # commit this so that the data in the database is saved
@@ -31,7 +38,7 @@ async def update(name, request, message_id):
         await db.commit()
 
 
-async def close(_):
+async def drop_table(_):
     async with aiosqlite.connect('database.db') as db:
         await db.execute("DROP table IF EXISTS info")  # commit this so that the data in the database is saved
         print("SQL-Connection is closed")
