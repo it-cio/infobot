@@ -1,4 +1,5 @@
 import aioschedule
+import logging
 import routes
 
 
@@ -18,4 +19,5 @@ routes.asyncio.get_event_loop().run_until_complete(tasks())
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     routes.bot_run()

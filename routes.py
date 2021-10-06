@@ -4,6 +4,7 @@ from sql import create_table, select, update, drop_table
 from framework.bot import send_message, edit_message, pin_message, run
 from weather.forecast import weather_request
 from covid.prognosis import covid_request
+from asterisk.ami import ami_connect, manager, Manager, Message, ami_callback
 
 
 async def route_weather(greet):
@@ -37,5 +38,10 @@ async def route_covid(greet):
             await asyncio.sleep(1)
 
 
+async def run_ami(_):
+    ami_connect(state=False)
+    await asyncio.sleep(1)
+
+
 def bot_run():
-    run(startup=create_table, shutdown=drop_table)
+    run(startup=(create_table, run_ami), shutdown=drop_table)
