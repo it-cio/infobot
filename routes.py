@@ -40,7 +40,7 @@ async def route_covid(greet):
 
 
 async def run_ami(_):
-    ami.ami_connect(state=False)
+    ami.connect(state=False)
     while True:
         if ami.event:
             print(ami.event[0])
