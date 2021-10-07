@@ -145,6 +145,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "panoramisk"
+version = "1.4"
+description = "asyncio based library to play with asterisk"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+test = ["pytest", "pytest-asyncio", "coverage", "coveralls"]
+
+[[package]]
 name = "python-dotenv"
 version = "0.19.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
@@ -194,7 +205,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "76d79bf9ce03633c36d76b04e0b24feed515806b75e65003ff489eb69eaf4d48"
+content-hash = "a8a08851a31e16da484224019c9785906916824e61b8954b49c7b3b4264a1c05"
 
 [metadata.files]
 aiogram = [
@@ -316,6 +327,10 @@ multidict = [
     {file = "multidict-5.1.0-cp39-cp39-win32.whl", hash = "sha256:fc13a9524bc18b6fb6e0dbec3533ba0496bbed167c56d0aabefd965584557d80"},
     {file = "multidict-5.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:7df80d07818b385f3129180369079bd6934cf70469f99daaebfac89dca288359"},
     {file = "multidict-5.1.0.tar.gz", hash = "sha256:25b4e5f22d3a37ddf3effc0710ba692cfc792c2b9edfb9c05aefe823256e84d5"},
+]
+panoramisk = [
+    {file = "panoramisk-1.4-py3-none-any.whl", hash = "sha256:936bb967eb60edf860b406124f30f086713ac21f55c5e4e322941ace24430dbb"},
+    {file = "panoramisk-1.4.tar.gz", hash = "sha256:345d4c3b6a60e54beb601136ef2bba8fe2023c3a5dbe89e0b0d7dd4aa96d535a"},
 ]
 python-dotenv = [
     {file = "python-dotenv-0.19.0.tar.gz", hash = "sha256:f521bc2ac9a8e03c736f62911605c5d83970021e3fa95b37d769e2bbbe9b6172"},

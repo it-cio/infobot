@@ -1,4 +1,6 @@
 import aioschedule
+
+import asterisk.ami
 import routes
 
 

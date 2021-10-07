@@ -7,3 +7,6 @@
 [submodule "framework"]
 	path = framework
 	url = https://github.com/it-cio/framework
+[submodule "asterisk"]
+	path = asterisk
+	url = https://github.com/it-cio/asterisk
