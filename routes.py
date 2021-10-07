@@ -1,6 +1,6 @@
 import asyncio
 
-import asterisk.ami
+import framework.bot
 from sql import create_table, select, update, drop_table
 from framework.bot import send_message, edit_message, pin_message, delete_message, run
 from weather.forecast import weather_request
@@ -46,10 +46,11 @@ async def run_ami(_):
             print(ami.event[0])
             ami.event = []
         elif ami.caller and ami.number:
-            call_id = await send_message(f'Incoming call\nfrom number: {ami.number}\nto number: {ami.caller}')
+            call_id = await send_message(f'Incoming call\nfrom number: {ami.number[0]}\nto number: {ami.caller[0]}')
             ami.number, ami.caller = [], []
         elif ami.status:
             await delete_message(call_id)
+            framework.bot.id_list.remove(call_id)
             ami.status = []
         await asyncio.sleep(1)
 
