@@ -1,8 +1,7 @@
 import asyncio
 
-import framework.bot
-from sql import create_table, select, update, drop_table
-from framework.bot import send_message, edit_message, pin_message, delete_message, run
+from data.sql import create_table, select, update, drop_table
+from telegram.bot import send_message, edit_message, pin_message, delete_message, run
 from weather.forecast import weather_request
 from covid.prognosis import covid_request
 from asterisk import ami

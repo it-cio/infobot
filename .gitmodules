@@ -4,9 +4,12 @@
 [submodule "covid"]
 	path = covid
 	url = https://github.com/it-cio/covid
-[submodule "framework"]
-	path = framework
-	url = https://github.com/it-cio/framework
 [submodule "asterisk"]
 	path = asterisk
 	url = https://github.com/it-cio/asterisk
+[submodule "telegram"]
+	path = telegram
+	url = https://github.com/it-cio/telegram
+[submodule "data"]
+	path = data
+	url = http://github.com/it-cio/data
